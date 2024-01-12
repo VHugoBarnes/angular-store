@@ -32,4 +32,8 @@ export class ListComponent {
       title: "XBox Series X"
     },
   ];
+
+  listener(product: Product) {
+    console.log(product);
+  }
 }

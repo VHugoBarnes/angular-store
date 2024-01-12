@@ -1,4 +1,7 @@
-<div class="w-64 rounded-lg bg-slate-200 hover:bg-slate-300 transition-colors duration-200 cursor-pointer">
+<div
+  class="w-64 rounded-lg bg-slate-200 hover:bg-slate-300 transition-colors duration-200 cursor-pointer"
+  (click)="addCartHandler()"
+>
   <img
     [src]="product.imageUrl"
     [alt]="product.title"
