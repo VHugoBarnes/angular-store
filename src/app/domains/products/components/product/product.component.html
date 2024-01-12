@@ -1,1 +1,8 @@
-<p>product works!</p>
+<div>
+  <img
+    [src]="product.imageUrl"
+    [alt]="product.title"
+  >
+  <h3>{{product.title}}</h3>
+  <p>${{product.price.toFixed(2)}}</p>
+</div>

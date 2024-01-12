@@ -1,1 +1,6 @@
 <p>list works!</p>
+<div class="grid grid-cols-3">
+  @for (product of products; track $index) {
+  <app-product [product]="product" />
+  }
+</div>
