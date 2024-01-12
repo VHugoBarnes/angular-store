@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '../../models/product.interface';
 
 @Component({
@@ -8,9 +8,16 @@ import { Product } from '../../models/product.interface';
   templateUrl: './product.component.html'
 })
 export class ProductComponent {
-  @Input() product: Product = {
+  @Input({ required: true }) product: Product = {
     imageUrl: "",
     price: 0,
     title: ""
   };
+
+  @Output() addToCart = new EventEmitter();
+
+  addCartHandler() {
+    console.log("Clicking from child");
+    this.addToCart.emit("Hi, this is a message from the child");
+  }
 }
