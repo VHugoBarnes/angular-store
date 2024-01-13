@@ -11,6 +11,7 @@ export class CounterComponent {
   @Input({ required: true }) message: string = "";
 
   constructor() {
+    // Runs once
     console.log("Constructor");
     console.log("=".repeat(20));
   }
@@ -19,6 +20,27 @@ export class CounterComponent {
     // Before and during render
     console.log("ngOnChanges");
     console.log({ changes });
+    console.log("=".repeat(20));
+  }
+
+  ngOnInit() {
+    // after render
+    // async
+    console.log("ngOnInit");
+    console.log("duration =>", this.duration);
+    console.log("message =>", this.message);
+    console.log("=".repeat(20));
+  }
+
+  ngAfterViewInit() {
+    // after render
+    // if child were rendered
+    console.log("ngAfterViewInit");
+    console.log("=".repeat(20));
+  }
+
+  ngOnDestroy() {
+    console.log("ngOnDestroy");
     console.log("=".repeat(20));
   }
 }
