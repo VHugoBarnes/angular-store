@@ -2,9 +2,9 @@ import { Component, inject, signal } from '@angular/core';
 import { ProductComponent } from "../../components/product/product.component";
 import { CommonModule } from '@angular/common';
 import { Product } from '../../models/product.interface';
-import { v4 as uuid } from "uuid";
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { CartService } from '../../../shared/services/cart.service';
+import { ProductService } from '../../../shared/services/product.service';
 
 @Component({
   selector: 'app-list',
@@ -13,43 +13,40 @@ import { CartService } from '../../../shared/services/cart.service';
   templateUrl: './list.component.html'
 })
 export class ListComponent {
+  private productService = inject(ProductService);
   products = signal<Product[]>([]);
+
   private cartService = inject(CartService);
   cart = this.cartService.cart;
 
-  constructor() {
-    const initialProducts: Product[] = [
-      {
-        id: uuid(),
-        imageUrl: `https://picsum.photos/500/500?r=${Math.round(Math.random() * 100)}`,
-        price: 200,
-        title: "Nintendo Switch",
-        createdAt: new Date().toISOString()
-      },
-      {
-        id: uuid(),
-        imageUrl: `https://picsum.photos/500/500?r=${Math.round(Math.random() * 100)}`,
-        price: 400,
-        title: "PlayStation 5",
-        createdAt: new Date().toISOString()
-      },
-      {
-        id: uuid(),
-        imageUrl: `https://picsum.photos/500/500?r=${Math.round(Math.random() * 100)}`,
-        price: 800,
-        title: "PC Gamer",
-        createdAt: new Date().toISOString()
-      },
-      {
-        id: uuid(),
-        imageUrl: `https://picsum.photos/500/500?r=${Math.round(Math.random() * 100)}`,
-        price: 300,
-        title: "XBox Series X",
-        createdAt: new Date().toISOString()
-      },
-    ];
+  ngOnInit() {
+    this.productService.getProducts().subscribe({
+      next: (products) => {
+        const parsedProducts: Product[] = products.map((product) => {
+          let imageUrl!: string;
 
-    this.products.set(initialProducts);
+          if (product.images.at(0) === "[") {
+            const parsed = JSON.parse(product.images[0]);
+            imageUrl = parsed;
+          } else {
+            imageUrl = product.images[0];
+          }
+
+          return {
+            createdAt: new Date().toISOString(),
+            id: product.id.toString(),
+            imageUrl: imageUrl,
+            price: product.price,
+            title: product.title
+          };
+        });
+
+        this.products.set(parsedProducts);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
 
   addToCart(product: Product) {
