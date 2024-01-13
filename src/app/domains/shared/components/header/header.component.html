@@ -36,7 +36,7 @@
     </div>
     <div class="flex items-center space-x-2">
       <span class="text-gray-500 text-sm">
-        {{cart.length}}
+        {{cart().length}}
       </span>
       <button (click)="toggleSideMenu()">
         <svg
@@ -83,7 +83,7 @@
   </div>
 
   <div class="space-y-2 my-10">
-    @for (product of cart; track $index) {
+    @for (product of cart(); track $index) {
     <div class="flex bg-gray-200 border border-gray-100 shadow-lg rounded-md p-2 space-x-2">
       <img
         [src]="product.imageUrl"
