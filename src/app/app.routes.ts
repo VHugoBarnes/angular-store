@@ -8,7 +8,7 @@ export const routes: Routes = [
     component: ListComponent
   },
   {
-    path: "info",
+    path: "about",
     component: AboutComponent
   }
 ];
