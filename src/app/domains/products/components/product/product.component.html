@@ -5,9 +5,9 @@
     class="w-64 h-64 rounded-t-lg"
   >
   <div class="p-2 py-4 space-y-2">
-    <h3 class="text-xl text-slate-700 font-bold">{{product.title}}</h3>
+    <h3 class="text-xl text-slate-700 font-bold">{{product.title | reverse}}</h3>
     <p class="text-lg text-slate-700">{{product.price | currency: "$":"symbol":"1.2"}}</p>
-    <p class="text-slate-500">{{product.createdAt | date}}</p>
+    <p class="text-slate-500">{{product.createdAt | timeAgo}}</p>
     <button
       (click)="addCartHandler()"
       class="text-white bg-blue-500 hover:bg-blue-600 transition-all duration-200 rounded-xl px-4 py-2 hover:scale-105"
