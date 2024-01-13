@@ -3,11 +3,12 @@ import { ProductComponent } from "../../components/product/product.component";
 import { CommonModule } from '@angular/common';
 import { Product } from '../../models/product.interface';
 import { v4 as uuid } from "uuid";
+import { HeaderComponent } from '../../../shared/components/header/header.component';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, ProductComponent],
+  imports: [CommonModule, ProductComponent, HeaderComponent],
   templateUrl: './list.component.html'
 })
 export class ListComponent {
