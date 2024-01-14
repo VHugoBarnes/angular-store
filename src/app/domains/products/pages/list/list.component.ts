@@ -23,13 +23,11 @@ export class ListComponent {
     this.productService.getProducts().subscribe({
       next: (products) => {
         const parsedProducts: Product[] = products.map((product) => {
-          let imageUrl!: string;
+          let imageUrl: string = product.images[0];
 
-          if (product.images.at(0) === "[") {
-            const parsed = JSON.parse(product.images[0]);
+          if (imageUrl.at(0) === "[") {
+            const parsed = JSON.parse(imageUrl);
             imageUrl = parsed;
-          } else {
-            imageUrl = product.images[0];
           }
 
           return {
@@ -37,7 +35,9 @@ export class ListComponent {
             id: product.id.toString(),
             imageUrl: imageUrl,
             price: product.price,
-            title: product.title
+            title: product.title,
+            description: product.description,
+            category: product.category
           };
         });
 
